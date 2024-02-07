@@ -19,16 +19,6 @@ export default class UserService {
     }
 
     async addUser(userData) {
-        let insertId;
-        try {
-            insertId = await this.#db.addOne(userData.firstname, userData.lastname, email)
-        } catch (error) {
-            if (error.sqlState == 23000) {
-                // user exist
-            } else {
-                throw error;
-            }
-        }
-        return { userData, id: insertId };
+        return await this.#db.addOne(userData.firstname, userData.lastname, email)
     }
 }
