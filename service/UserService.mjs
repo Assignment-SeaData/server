@@ -15,10 +15,20 @@ export default class UserService {
     }
 
     async updateUser(id, userData) {
-        return await this.#db.updateOne(userData.firstname, userData.lastname, id);
+        return await this.#db.updateOne(userData, id);
     }
 
     async addUser(userData) {
-        return await this.#db.addOne(userData.firstname, userData.lastname, email)
+        let insertId;
+        try {
+            insertId = await this.#db.addOne(userData)
+        } catch (error) {
+            if (error.sqlState == 23000) {
+                throw 'User alrady exist'
+            } else {
+                throw error;
+            }
+        }
+        return { id: insertId, ...userData };
     }
 }

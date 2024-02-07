@@ -1,25 +1,13 @@
 import express from 'express'
+import { addUser, deleteUser, getUsers, updateUser } from '../controller/usersController.mjs';
+import { userValidation } from '../middleware/userValidation.mjs';
 
 export const usersRoute = express.Router();
 
-const service = new UserService();
+usersRoute.post('', userValidation, addUser)
 
-//Create
-usersRoute.post('', async (req, res) => {
+usersRoute.get('', getUsers)
 
-})
+usersRoute.put('/:id', userValidation, updateUser)
 
-//Read
-usersRoute.get('', async (req, res) => {
-
-})
-
-//Update
-usersRoute.put('/:id', async (req, res) => {
-
-})
-
-//Delete
-usersRoute.delete('/:id', async (req, res) => {
-
-})
+usersRoute.delete('/:id', deleteUser)

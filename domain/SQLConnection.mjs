@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise'
-import jsonData from '../config/requests.json'
+import jsonData from '../config/requests.json' assert { type: 'json' }
 
 export default class SQLConnection {
 
@@ -23,15 +23,15 @@ export default class SQLConnection {
         return +res.affectedRows > 0;
     }
 
-    async updateOne(fullName, country, city, email, phoneNumber, jobTitle, emailxperience, id) {
+    async updateOne(userData, id) {
         const sql = jsonData.updateOne;
-        const [res] = await this.#connection.execute(sql, [fullName, country, city, email, phoneNumber, jobTitle, emailxperience, id]);
+        const [res] = await this.#connection.execute(sql, [userData.fullName, userData.country, userData.city, userData.email, userData.phoneNumber, userData.jobTitle, userData.experience, id]);
         return +res.affectedRows > 0;
     }
 
-    async addOne(fullName, country, city, email, phoneNumber, jobTitle, emailxperience) {
+    async addOne(userData) {
         const sql = jsonData.addOne
-        const [res] = await this.#connection.execute(sql, [fullName, country, city, email, phoneNumber, jobTitle, emailxperience]);
+        const [res] = await this.#connection.execute(sql, [userData.fullName, userData.country, userData.city, userData.email, userData.phoneNumber, userData.jobTitle, userData.experience]);
         return res.insertId;
     }
 
