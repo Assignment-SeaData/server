@@ -14,7 +14,19 @@ export default class SQLConnection {
     async getAll() {
         const sql = jsonData.getAll;
         const [res] = await this.#connection.execute(sql);
-        return res;
+        const newRes = res.map(r => {
+            return {
+                id: r.id,
+                country: r.country,
+                city: r.city,
+                email: r.email,
+                fullName: r.full_name,
+                phoneNumber: r.phone_number,
+                jobTitle: r.job_title,
+                experience: r.years_of_experience
+            }
+        })
+        return newRes;
     }
 
     async deleteOne(id) {
