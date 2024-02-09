@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 export const schema = Joi.object({
-    fullName: Joi.string().regex(/^[a-zA-Z]*[a-zA-Z]+\s[a-zA-Z]*[a-zA-Z]+$/).min(3).required().messages({
+    fullName: Joi.string().regex(/^[a-zA-Z]+(\s[a-zA-Z]+)+$/).min(3).required().messages({
         'string.empty': 'Please provide your Full Name',
         'string.pattern.base': 'Please provide your Full Name with spaces',
         'any.required': 'Full Name field is required'
@@ -20,9 +20,9 @@ export const schema = Joi.object({
         'string.email': 'Please provide correct Email',
         'any.required': 'Email field is required'
     }), 
-    phoneNumber: Joi.string().regex(/^\+\d{1,4}\d{1,}$/).required().messages({
+    phoneNumber: Joi.string().regex(/^\+\d{1,4}\s\d{1,}$/).required().messages({
         'string.empty': 'Please provide your Phone',
-        'string.pattern.base': 'Please provide correct Phone Number with code',
+        'string.pattern.base': 'Please provide correct code and Number without sighns',
         'any.required': 'Country field is required'
     }), 
     jobTitle: Joi.string().required().messages({
