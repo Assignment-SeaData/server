@@ -13,4 +13,6 @@ app.use('', usersRoute)
 
 const server = app.listen(port);
 
+server.on('listening', () => 'server listening on port ' + port)
+
 app.use(errorHandler)
